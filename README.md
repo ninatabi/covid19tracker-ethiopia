@@ -1,5 +1,7 @@
 # COVID - 19 Tracker | Ethiopia
 
+Link to shiny interactive dashboard: https://ninatabi.shinyapps.io/covid19tracker-ethiopia/
+
 Data source: WHO "https://covid19.who.int/WHO-COVID-19-global-data.csv"
 
 A current variation of the interactive mapping tracker is a demo-version of an upcoming more detailed region-based COVID-19 tracker. 
