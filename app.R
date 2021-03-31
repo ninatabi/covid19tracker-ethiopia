@@ -7,10 +7,9 @@
 # https://github.com/fverkroost/RStudio-Blogs/blob/master/interactive_worldmap_shiny_app.R
 # https://github.com/eparker12/nCoV_tracker/blob/master/app.R
 
-
 # install packages and libraries
-devtools::install_github("ropenscilabs/rnaturalearthdata")
-if(!require(rnaturalearthhires)) install.packages("rnaturalearthhires", repos = "http://packages.ropensci.org", type = "source")
+
+if(!require(rnaturalearthhires)) install.packages("rnaturalearthhires", repos = "http://packages.ropensci.org")
 if(!require(magrittr)) install.packages("magrittr", repos = "http://cran.us.r-project.org")
 if(!require(rvest)) install.packages("rvest", repos = "http://cran.us.r-project.org")
 if(!require(readxl)) install.packages("readxl", repos = "http://cran.us.r-project.org")
@@ -99,7 +98,7 @@ full_data <- merge(map_hoa, data_hoa, by = "Country")
 # set dates
 full_data$Date_reported = as.Date(full_data$Date_reported)
 min_date = as.Date(min(full_data$Date_reported), "%Y-%m-%d")
-current_date = as.Date(max(full_data$Date_reported),"%Y-%m-%d")
+current_date = as.Date(max(full_data$Date_reported),"%Y-%m-%d") - 1
 current_date_clean = format(as.POSIXct(current_date), "%d %B %Y")  
 
 data_eth$Date_reported = as.Date(data_eth$Date_reported)
@@ -191,13 +190,13 @@ ui <- bootstrapPage(
                     h3 {font-weight: 400; font-family: 'Roboto', sans-serif;}
                     h4 {font-weight: 300; font-family: 'Roboto', sans-serif;}
                     h5 {font-weight: 300; font-family: 'Roboto', sans-serif;}
-                    h6 {font-weight: 100; font-family: 'Roboto', sans-serif;}
+                    h6 {font-weight: 400; font-family: 'Roboto', sans-serif;}
                   
                     }"))),
 
   absolutePanel(class = "panel panel-default", top = 50, left = 60, 
                 draggable = TRUE, width = 353, fixed = TRUE, height = "auto", 
-                titlePanel(h3("COVID-19 Tracker  |  Ethiopia")),
+                titlePanel(h3("COVID-19 Tracker | Ethiopia"), windowTitle = "COVID-19 Tracker | Ethiopia"),
                 
                 style = "background-color: white; opacity: 0.7;",
                 
@@ -206,7 +205,7 @@ ui <- bootstrapPage(
                 h6(textOutput("reactive_clean_date"), align = "right"),
                 
                 sliderTextInput("plot_date", h6("DATE"),
-                                choices = format(unique(data_eth$Date_reported), "%d %b %y"),
+                                choices = format(unique(full_data$Date_reported), "%d %b %y"),
                                 selected = format(current_date,"%d %b %y"),
                                 grid = FALSE,
                                 width = "100%",
